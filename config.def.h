@@ -19,7 +19,20 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "\uf10c", "\uf10c", "\uf10c", "\uf10c","\uf10c", "\uf10c","\uf10c", "\uf10c","\uf10c"};
+static const char tag_decorated[] = "\uf111";
+
+static const char *tagsel[][2] = {
+	{ "#e06c75", col_gray1 },
+	{ "#be5046", col_gray1 },
+	{ "#98c379", col_gray1 },
+	{ "#e5c07b", col_gray1 },
+	{ "#d19a66", col_gray1 },
+	{ "#61afef", col_gray1 },
+	{ "#c678dd", col_gray1 },
+	{ "#56b6c2", col_gray1 },
+	{ "#5c6370", col_gray1 },
+};
 
 static const Rule rules[] = {
 	/* xprop(1):
