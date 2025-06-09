@@ -1,0 +1,89 @@
+From c6020d6f957ba2ba2100ac4c34bdd856695e3bd5 Mon Sep 17 00:00:00 2001
+From: Matej Prerovsky <bofin@skaut.cz>
+Date: Mon, 9 Jun 2025 17:32:21 +0000
+Subject: [PATCH] This patch changes tag numbers to circles that are colorful
+ if their tags contain windows and filled if it's the active tag.
+
+This works if you install a nerd font (e. g. JetBrains Mono NF).
+---
+ config.def.h | 15 ++++++++++++++-
+ dwm.c        | 20 ++++++++++++++------
+ 2 files changed, 28 insertions(+), 7 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 9efa774..db5db9b 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -19,7 +19,20 @@ static const char *colors[][3]      = {
+ };
+ 
+ /* tagging */
+-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
++static const char *tags[] = { "\uf10c", "\uf10c", "\uf10c", "\uf10c","\uf10c", "\uf10c","\uf10c", "\uf10c","\uf10c"};
++static const char tag_decorated[] = "\uf111";
++
++static const char *tagsel[][2] = {
++	{ "#e06c75", col_gray1 },
++	{ "#be5046", col_gray1 },
++	{ "#98c379", col_gray1 },
++	{ "#e5c07b", col_gray1 },
++	{ "#d19a66", col_gray1 },
++	{ "#61afef", col_gray1 },
++	{ "#c678dd", col_gray1 },
++	{ "#56b6c2", col_gray1 },
++	{ "#5c6370", col_gray1 },
++};
+ 
+ static const Rule rules[] = {
+ 	/* xprop(1):
+diff --git a/dwm.c b/dwm.c
+index 1443802..026729c 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -262,6 +262,7 @@ static Atom wmatom[WMLast], netatom[NetLast];
+ static int running = 1;
+ static Cur *cursor[CurLast];
+ static Clr **scheme;
++static Clr **tagscheme;
+ static Display *dpy;
+ static Drw *drw;
+ static Monitor *mons, *selmon;
+@@ -721,12 +722,14 @@ drawbar(Monitor *m)
+ 	x = 0;
+ 	for (i = 0; i < LENGTH(tags); i++) {
+ 		w = TEXTW(tags[i]);
+-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+-		if (occ & 1 << i)
+-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+-				urg & 1 << i);
++		if (occ & 1 << i) // if tag has clients
++			drw_setscheme(drw, tagscheme[i]);
++		else
++			drw_setscheme(drw, scheme[SchemeNorm]);
++		if(m->tagset[m->seltags] & 1 << i) // if active
++			drw_text(drw, x, 0, w, bh, lrpad / 2, tag_decorated, urg & 1 << i);
++		else
++			drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+ 		x += w;
+ 	}
+ 	w = TEXTW(m->ltsymbol);
+@@ -1583,9 +1586,14 @@ setup(void)
+ 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
+ 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
+ 	/* init appearance */
++	if (LENGTH(tags) > LENGTH(tagsel))
++		die("too few color schemes for the tags");
+ 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
+ 	for (i = 0; i < LENGTH(colors); i++)
+ 		scheme[i] = drw_scm_create(drw, colors[i], 3);
++	tagscheme = ecalloc(LENGTH(tagsel), sizeof(Clr *));
++	for (i = 0; i < LENGTH(tagsel); i++)
++		tagscheme[i] = drw_scm_create(drw, tagsel[i], 2);
+ 	/* init bars */
+ 	updatebars();
+ 	updatestatus();
+-- 
+2.49.0
+
