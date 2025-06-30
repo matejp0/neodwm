@@ -836,6 +836,7 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		tw = m->ww - drawstatusbar(m, bh, stext);
+//		tw = m->ww - drawstatusbar(m, bh, stext) - lrpad / 2 + 2;
 		//============check this
 // @@ -708,8 +708,8 @@ drawbar(Monitor *m)
 //  	/* draw status first so it can be overdrawn by tags later */

@@ -11,8 +11,8 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 10;       /* vertical padding of bar */
-static const int sidepad            = 20;       /* horizontal padding of bar */
+static const int vertpad            = 0;       /* vertical padding of bar */
+static const int sidepad            = 0;       /* horizontal padding of bar */
 static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 10;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "JetBrainsMono NF:size=12" };
@@ -113,6 +113,8 @@ static const Key keys[] = {
 	{ 0,														XF86XK_AudioLowerVolume,	spawn,	SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+5 dwmblocks") },
 	{ 0,														XF86XK_AudioRaiseVolume,	spawn,	SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+5 dwmblocks") },
 	{ 0,														XF86XK_AudioMute,	spawn,	SHCMD("/usr/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+5 dwmblocks") },
+	{ 0,														XF86XK_MonBrightnessDown,	spawn,	SHCMD("/usr/bin/xbacklight -dec 5 && pkill -RTMIN+6 dwmblocks") },
+	{ 0,														XF86XK_MonBrightnessUp,	spawn,	SHCMD("/usr/bin/xbacklight -inc 5 && pkill -RTMIN+6 dwmblocks") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
