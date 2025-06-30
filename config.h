@@ -102,9 +102,6 @@ static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *browsercmd[]  = { "librewolf", NULL };
 static const char *filescmd[]  = { "Thunar", NULL };
-static const char *volumeDown[] = { "echo", "neco", ">>", "/home/mata/command", "&&", "/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", "&&", "pkill", "-RTMIN+5", "dwmblocks", NULL };
-static const char *volumeUp[] = { "/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", "&&", "pkill", "-RTMIN+5", "dwmblocks", NULL };
-static const char *volumeMute[] = { "/usr/bin/wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", "&&", "pkill", "-RTMIN+5", "dwmblocks", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -113,9 +110,9 @@ static const Key keys[] = {
 	{ MODKEY,             		XK_e, 	   spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,         		XK_e, 	   spawn,          SHCMD("killall firefox && firefox") },
 	{ MODKEY,             		XK_z, 	   spawn,          {.v = filescmd } },
-	{ 0,														XF86XK_AudioLowerVolume,	spawn,	{.v = volumeDown } },
-	{ 0,														XF86XK_AudioRaiseVolume,	spawn,	{.v = volumeUp } },
-	{ 0,														XF86XK_AudioMute,	spawn,	{.v = volumeMute } },
+	{ 0,														XF86XK_AudioLowerVolume,	spawn,	SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+5 dwmblocks") },
+	{ 0,														XF86XK_AudioRaiseVolume,	spawn,	SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+5 dwmblocks") },
+	{ 0,														XF86XK_AudioMute,	spawn,	SHCMD("/usr/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+5 dwmblocks") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
