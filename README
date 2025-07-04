@@ -2,6 +2,16 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
+Applied patches
+---------------
+- autostart
+- cfacts-vanitygaps
+- notitle
+- status2d-barpadding
+- statuscmd-status2d
+- statuspadding
+- colorfulcircletags (that's my own, it's in this repo)
+
 
 Requirements
 ------------
