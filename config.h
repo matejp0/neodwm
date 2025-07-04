@@ -2,7 +2,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
@@ -25,7 +25,7 @@ static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_gray3  },
 };
 
 /* tagging */
@@ -100,22 +100,25 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 static const char *browsercmd[]  = { "librewolf", NULL };
 static const char *filescmd[]  = { "Thunar", NULL };
 
+#include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,             		XK_e, 	   spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,         		XK_e, 	   spawn,          SHCMD("killall firefox && firefox") },
+	{ MODKEY|ShiftMask,         		XK_e, 	   spawn,          SHCMD("killall librewolf && librewolf") },
 	{ MODKEY,             		XK_z, 	   spawn,          {.v = filescmd } },
 	{ 0,														XF86XK_AudioLowerVolume,	spawn,	SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+6 dwmblocks") },
 	{ 0,														XF86XK_AudioRaiseVolume,	spawn,	SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+6 dwmblocks") },
 	{ 0,														XF86XK_AudioMute,	spawn,	SHCMD("/usr/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+6 dwmblocks") },
 	{ 0,														XF86XK_MonBrightnessDown,	spawn,	SHCMD("/usr/bin/xbacklight -dec 5 && pkill -RTMIN+7 dwmblocks") },
 	{ 0,														XF86XK_MonBrightnessUp,	spawn,	SHCMD("/usr/bin/xbacklight -inc 5 && pkill -RTMIN+7 dwmblocks") },
+	{ ALTKEY|ShiftMask,							XK_Return,			 spawn,					SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap -layout cz -variant qwerty || setxkbmap us; pkill -RTMIN+11 dwmblocks ") },
+	{ 0,														XK_Print,		spawn,				SHCMD("xfce4-screenshooter") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -126,20 +129,21 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 //	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,             		XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_space,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+//	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
+// 	{ MODKEY,                       XK_space,  setlayout,      {} },
+	{ MODKEY|ShiftMask,             XK_f,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_m,  		 focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_m,  		 tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -149,6 +153,15 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_plus,                      0)
+	TAGKEYS(                        XK_ecaron,                      1)
+	TAGKEYS(                        XK_scaron,                      2)
+	TAGKEYS(                        XK_ccaron,                      3)
+	TAGKEYS(                        XK_rcaron,                      4)
+	TAGKEYS(                        XK_zcaron,                      5)
+	TAGKEYS(                        XK_yacute,                      6)
+	TAGKEYS(                        XK_aacute,                      7)
+	TAGKEYS(                        XK_iacute,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
