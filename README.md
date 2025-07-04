@@ -12,6 +12,9 @@ Applied patches
 - statuspadding
 - colorfulcircletags (that's my own, it's in this repo)
 
+![My version](screenshot.png)
+
+
 
 Requirements
 ------------
