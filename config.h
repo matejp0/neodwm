@@ -119,6 +119,7 @@ static const Key keys[] = {
 	{ 0,														XF86XK_MonBrightnessUp,	spawn,	SHCMD("/usr/bin/xbacklight -inc 5 && pkill -RTMIN+7 dwmblocks") },
 	{ ALTKEY|ShiftMask,							XK_Return,			 spawn,					SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap -layout cz -variant qwerty || setxkbmap us; pkill -RTMIN+11 dwmblocks ") },
 	{ 0,														XK_Print,		spawn,				SHCMD("xfce4-screenshooter") },
+	{ MODKEY,												XK_a,		spawn,				SHCMD("/usr/bin/autorandr --change && dunstify -r 15 'autorandr' 'reload'") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
