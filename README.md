@@ -11,6 +11,8 @@ Applied patches
 - statuscmd-status2d
 - statuspadding
 - colorfulcircletags (that's my own, it's in this repo)
+- statuscmd
+- movestack
 
 ![My version](screenshot.png)
 
