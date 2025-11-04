@@ -13,6 +13,7 @@ Applied patches
 - colorfulcircletags (that's my own, it's in this repo)
 - statuscmd
 - movestack
+- actualfullscreen
 
 ![My version](screenshot.png)
 

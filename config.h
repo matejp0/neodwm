@@ -142,7 +142,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,             					XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,             					XK_f,      togglefullscr,  {0} },
 //	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
 // 	{ MODKEY,                       XK_space,  setlayout,      {} },
