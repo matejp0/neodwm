@@ -101,7 +101,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *browsercmd[]  = { "librewolf", NULL };
+static const char *browsercmd[]  = { "librewolf", "-P", "default-default", NULL };
+static const char *browseraltcmd[]  = { "librewolf", "-P", "hamu", NULL };
 static const char *filescmd[]  = { "Thunar", NULL };
 
 #include "movestack.c"
@@ -110,14 +111,15 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = dmenucmd } },
 	{ MODKEY,             					XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,             					XK_e, 	   spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,         		XK_e, 	   spawn,          SHCMD("pkill librewolf && librewolf") },
+	{ MODKEY|ShiftMask,     				XK_e, 	   spawn,          {.v = browseraltcmd } },
+/*	{ MODKEY|ShiftMask,         		XK_e, 	   spawn,          SHCMD("pkill librewolf && librewolf") },*/
 	{ MODKEY,             					XK_z, 	   spawn,          {.v = filescmd } },
 
 	{ 0,														XF86XK_AudioLowerVolume,	 spawn,		SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+6 dwmblocks") },
 	{ 0,														XF86XK_AudioRaiseVolume,	 spawn,		SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+6 dwmblocks") },
 	{ 0,														XF86XK_AudioMute,					 spawn,		SHCMD("/usr/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+6 dwmblocks") },
-	{ 0,														XF86XK_MonBrightnessDown,	 spawn,		SHCMD("/usr/bin/xbacklight -dec 5 && pkill -RTMIN+7 dwmblocks") },
-	{ 0,														XF86XK_MonBrightnessUp,		 spawn,		SHCMD("/usr/bin/xbacklight -inc 5 && pkill -RTMIN+7 dwmblocks") },
+	{ 0,														XF86XK_MonBrightnessDown,	 spawn,		SHCMD("/usr/bin/brightnessctl set 5%- && pkill -RTMIN+7 dwmblocks") },
+	{ 0,														XF86XK_MonBrightnessUp,		 spawn,		SHCMD("/usr/bin/brightnessctl set 5%+ && pkill -RTMIN+7 dwmblocks") },
 
 	{ ALTKEY|ShiftMask,							XK_Return, spawn,					 SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap -layout cz -variant qwerty || setxkbmap us; pkill -RTMIN+11 dwmblocks ") },
 	{ 0,														XK_Print,	 spawn,					 SHCMD("xfce4-screenshooter") },
