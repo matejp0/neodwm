@@ -112,7 +112,7 @@ static const Key keys[] = {
 	{ MODKEY,             					XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,             					XK_e, 	   spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,     				XK_e, 	   spawn,          {.v = browseraltcmd } },
-/*	{ MODKEY|ShiftMask,         		XK_e, 	   spawn,          SHCMD("pkill librewolf && librewolf") },*/
+	{ MODKEY|ShiftMask,         		XK_f, 	   spawn,          SHCMD("pkill librewolf && librewolf") },
 	{ MODKEY,             					XK_z, 	   spawn,          {.v = filescmd } },
 
 	{ 0,														XF86XK_AudioLowerVolume,	 spawn,		SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+6 dwmblocks") },
