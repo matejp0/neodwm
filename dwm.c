@@ -501,8 +501,8 @@ buttonpress(XEvent *e)
 				}
 			}
 		} 
-		else
-			click = ClkStatusText;
+/*		else
+			click = ClkStatusText;*/
 
 	} else if ((c = wintoclient(ev->window))) {
 		focus(c);
