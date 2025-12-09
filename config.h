@@ -124,7 +124,7 @@ static const Key keys[] = {
 	{ ALTKEY|ShiftMask,							XK_Return, spawn,					 SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap -layout cz -variant qwerty || setxkbmap us; pkill -RTMIN+11 dwmblocks ") },
 	{ 0,														XK_Print,	 spawn,					 SHCMD("xfce4-screenshooter") },
 	{ MODKEY,												XK_a,			 spawn,					 SHCMD("/usr/bin/autorandr --change && dunstify -r 15 'autorandr' 'reload'") },
-	{ MODKEY|ShiftMask,							XK_r, 		 spawn,					 SHCMD("~/.local/dwm/neodwm/toggle-rotate.sh") },
+	{ MODKEY|ShiftMask,							XK_r, 		 spawn,					 SHCMD("~/.local/share/dwm/neodwm/toggle-rotate.sh") },
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

@@ -18,6 +18,9 @@ Applied patches
 ![My version](screenshot.png)
 
 
+Custom changes
+--------------
+I also included a rotation script. Make sure to have this whole repository inside `~/.local/share/dwm/` directory to make it work.
 
 Requirements
 ------------
