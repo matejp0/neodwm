@@ -104,6 +104,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const char *browsercmd[]  = { "librewolf", "-P", "default-default", NULL };
 static const char *browseraltcmd[]  = { "librewolf", "-P", "hamu", NULL };
 static const char *filescmd[]  = { "Thunar", NULL };
+static const char *audiocontrol[]  = { "pavucontrol", NULL };
 
 #include "movestack.c"
 static const Key keys[] = {
@@ -114,6 +115,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,     				XK_e, 	   spawn,          {.v = browseraltcmd } },
 	{ MODKEY|ShiftMask,         		XK_f, 	   spawn,          SHCMD("pkill librewolf && librewolf") },
 	{ MODKEY,             					XK_z, 	   spawn,          {.v = filescmd } },
+	{ MODKEY,             					XK_p, 	   spawn,          {.v = audiocontrol } },
+	{ MODKEY|ShiftMask,    					XK_p, 	   spawn,          SHCMD("~/.local/share/dwm/neodwm/restart-pipewire.sh") },
 
 	{ 0,														XF86XK_AudioLowerVolume,	 spawn,		SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+6 dwmblocks") },
 	{ 0,														XF86XK_AudioRaiseVolume,	 spawn,		SHCMD("/usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+6 dwmblocks") },
